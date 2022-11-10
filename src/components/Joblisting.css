@@ -1,0 +1,67 @@
+.viewjob a {
+    color: white;
+    text-decoration: none;
+}
+
+.items {
+    width: 100%;
+    height: auto;
+    min-height: 100px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    -webkit-box-shadow: 0px 0px 20px -5px rgba(23, 73, 129, 0.5);
+    -moz-box-shadow: 0px 0px 20px -5px rgba(23, 73, 129, 0.5);
+    box-shadow: 0px 0px 20px -5px rgba(23, 73, 129, 0.5);
+    border-radius: 60px;
+
+}
+
+
+.wrapper p span {
+    font-weight: bold;
+}
+
+p {
+    display: inline;
+}
+
+.btn-wrapper {
+    display: flex;
+}
+
+.btn-wrapper button {
+    font-weight: bold;
+    line-height: 40px;
+    color: white;
+    background-color: #174981;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0 20px;
+    border-radius: 30px;
+}
+
+.nojob-wrapper {
+    /* height: calc(100vh - 60px); */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nojob-wrapper p {
+    color: #174981;
+    font-size: 28px;
+}
+
+/* .joblisting-wrapper{
+    display: flex;
+    flex-direction: column;
+} */
+
+.job-wrapper {
+    height: 100%;
+    width: 50%;
+}

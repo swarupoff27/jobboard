@@ -1,0 +1,31 @@
+.viewjob-wrapper{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    height: 100vh;
+    width:100%;
+}
+
+.viewjob-card{
+    min-width:300px;
+    /* width:400px; */
+    display:flex;
+    flex-direction: column;
+    /* border:2px solid #174981; */
+    padding:30px;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 0px 20px -5px rgba(23,73,129,0.5);
+-moz-box-shadow: 0px 0px 20px -5px rgba(23,73,129,0.5);
+box-shadow: 0px 0px 20px -5px rgba(23,73,129,0.5);
+}
+
+.viewjob-card p{
+    margin-bottom: 20px;
+}
+
+.viewjob-card button{
+    background-color: #174981;
+    line-height: 40px;
+    padding: 0 20px;
+    border-radius: 30px;
+}
