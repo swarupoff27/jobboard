@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useState ,useEffect } from "react";
 import './Sign.css';
 import { Link, Navigate } from "react-router-dom";
+
 
 
 class Signin extends Component {
@@ -95,13 +96,15 @@ class Signin extends Component {
         if (this.state.loggedIn) {
             return <Navigate to="/user" />
         }
+
+
         return (
             <React.Fragment>
                 <form className="form signin-form" action="" onSubmit={this.submitForm}>
                     <h2 className="text-center font-bold text-3xl">SIGN IN</h2>
-                    <input id="email" type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.onChange} />
-                    <input id="password" type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
-                    <button className="btn btn-signin" >Sign in</button>
+                    <input id="email" type="text" name="email" placeholder="Email"  />
+                    <input id="password" type="password" name="password" placeholder="Password"   />
+                    <button className="btn btn-signin">Sign in</button>
                     <Link to="/">Not Signed up? Sign up</Link>
                 </form>
             </React.Fragment>
@@ -109,52 +112,6 @@ class Signin extends Component {
     }
 }
 
-
-// const Signin = () => {
-
-//     const navigate = useNavigate();
-
-//     const test = (e) => {
-//         e.preventDefault();
-
-//         const email = document.getElementById('email').value;
-//         const password = document.getElementById('password').value;
-
-//         const x = JSON.parse(localStorage.getItem("allusersdetails"));
-
-//         for (let i = 0; i < x.length; i++) {
-//             let abc = (email === x[i].email && password === x[i].password)
-//             if (abc == true) {
-//                 console.log(abc);
-
-//                 const data = x[i].name;
-//                 console.log(data);
-
-//                 const loggedinuser = [];
-//                 loggedinuser.push(data);
-//                 localStorage.setItem("loggedinuser", JSON.stringify(loggedinuser));
-
-//                 alert('Signed innn!!!');
-//                 navigate("/user");
-
-//             }
-//         }
-
-//     }
-
-//     return (
-//         <div className="App">
-//             <form className="form" action="">
-//                 <h2>SIGN IN</h2>
-//                 <input id="email" type="email" placeholder="Email" />
-//                 <input id="password" type="password" placeholder="Password" />
-//                 <button className="btn btn-signup" onClick={test}>Sign in</button>
-//             </form>
-//             <Link to="/">Not Signed up? Sign up</Link>
-
-//         </div>
-//     );
-// }
 
 export default Signin;
 
