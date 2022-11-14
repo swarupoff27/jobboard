@@ -1,115 +1,86 @@
-import React, { Component, useState ,useEffect } from "react";
+import React from "react";
 import './Sign.css';
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Signup from "./Signup";
+
+import { getDatabase, ref, child, get } from "firebase/database";
 
 
 
-class Signin extends Component {
 
-    constructor(props) {
-        super(props)
+function Signin() {
+    const navigate = useNavigate();
 
-        const token = localStorage.getItem('token')
-
-        let loggedIn = true
-        if (token == null) {
-            loggedIn = false
-        }
-
-        this.state = {
-            email: '',
-            password: '',
-            loggedIn
-        }
-
-        this.onChange = this.onChange.bind(this)
-        this.submitForm = this.submitForm.bind(this)
-
-    }
-
-    onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    submitForm(e) {
+    const submitForm = (e) => {
         e.preventDefault();
-        const { email, password } = this.state
-
-        const x = JSON.parse(localStorage.getItem("allusersdetails"));
-        console.log(x);
-
-        if (email === "") {
-            alert('Enter your email.');
-        } else if (password === "") {
-            alert('Enter your password.');
-        } else if (x != null) {
-            for (let i = 0; i < x.length; i++) {
-                let abc = (email === x[i].email && password === x[i].password)
-                if (abc == true) {
-                    console.log(abc);
-
-                    const data = x[i].name;
-                    console.log(data);
-
-                    const loggedinuser = [];
-                    loggedinuser.push(data);
-                    localStorage.setItem("loggedinuser", JSON.stringify(loggedinuser));
-                    // const hide_illus = document.querySelector('.illustration');
-                    // hide_illus.classList.add('hide-illus');
-                    alert('Signed in succesfully!!!');
 
 
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `users/`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const dataobj = snapshot.val();
+                console.log(dataobj);
+                // console.log(snapshot.val());
+                navigate("/user");
 
-                    function generate_token(length) {
-                        //edit the token allowed characters
-                        var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-                        var b = [];
-                        for (var i = 0; i < length; i++) {
-                            var j = (Math.random() * (a.length - 1)).toFixed(0);
-                            b[i] = a[j];
-                        }
-                        return b.join("");
-
-                    }
-
-
-                    // generate_token(100);
-
-                    localStorage.setItem("token", generate_token(30))
-                    this.setState({
-
-                        loggedIn: true
-                    })
-
-                }
+            } else {
+                console.log("No data available");
             }
-        } else {
-            alert('User not found! You need to Sign up first!')
-        }
+        }).catch((error) => {
+            console.error(error);
+        });
 
+
+        const email = "";
+        const password = "";
+
+
+        const auth = getAuth();
+        console.log(auth);
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user);
+                alert("Successfully signed in.");
+                // const navigate = useNavigate();
+                // navigate("/user");
+                // <Navigate to="/user" />
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log("errorCode:", errorCode)
+                console.log("errorMessage:", errorMessage)
+
+            });
+        navigate("/user");
+
+        // const { email, password } = this.state
     }
 
 
-    render() {
-        if (this.state.loggedIn) {
-            return <Navigate to="/user" />
-        }
+    // render() {
+    // if (this.state.loggedIn) {
+    //     return <Navigate to="/user" />
+    // }
 
 
-        return (
-            <React.Fragment>
-                <form className="form signin-form" action="" onSubmit={this.submitForm}>
-                    <h2 className="text-center font-bold text-3xl">SIGN IN</h2>
-                    <input id="email" type="text" name="email" placeholder="Email"  />
-                    <input id="password" type="password" name="password" placeholder="Password"   />
-                    <button className="btn btn-signin">Sign in</button>
-                    <Link to="/">Not Signed up? Sign up</Link>
-                </form>
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            <form className="form signin-form" action="">
+                <h2 className="text-center font-bold text-3xl">SIGN IN</h2>
+                <input id="email" type="text" name="email" placeholder="Email" />
+                <input id="password" type="password" name="password" placeholder="Password" />
+                <button className="btn btn-signin" onClick={submitForm}>Sign in</button>
+
+                <Link to="/">Not Signed up? Sign up</Link>
+            </form>
+        </React.Fragment>
+    )
+    // }
 }
 
 

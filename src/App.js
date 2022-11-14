@@ -7,6 +7,9 @@ import Joblisting from './components/Joblisting'
 import Viewjob from './components/Viewjob'
 import User from './components/User'
 import Signout from './components/Signout'
+import Dashboard from './components/dashboard';
+
+
 
 import { Routes, Route, Link } from "react-router-dom";
 
@@ -34,6 +37,7 @@ class App extends Component {
                 <Route path="joblisting" element={<Joblisting />} />
                 <Route path="viewjob" element={<Viewjob />} />
                 <Route path="signout" element={<Signout />} />
+                <Route path="dashboard" element={<Dashboard />} />
               </Routes>
             </div>
           </div>
